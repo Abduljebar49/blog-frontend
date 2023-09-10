@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 import { Blog } from '../models/blog';
 import { Author } from '../models/author';
 import { BlogType } from '../models/blog-type';
+import { BlogParam } from '../models/blog-params';
+import { Observable } from 'rxjs';
+import { BlogResponse } from '../models/blog-response';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +14,30 @@ export class BlogService {
 
   constructor(private http: HttpClient) { }
 
-  getBlogs() {
-    return this.blogs;
+  getBlog(id: any) {
+    let blog = this.blogs.find((ele) => ele.id == id);
+    return blog;
+  }
+
+  getBlogTypes() {
+    return this.blogTypes;
+  }
+
+  getBlogs(params: BlogParam): BlogResponse {
+    const blog = this.blogs;
+    const response: Blog[] = [];
+    let blogIndex = params.page == 1 ? 0 : (params.page - 1) * params.perPage;
+    for (let i = blogIndex; i < blogIndex + params.perPage; i++) {
+      if (blog[i]) {
+        response.push(blog[i]);
+      }
+    }
+    return {
+      page: params.page,
+      data: response,
+      perPage: params.perPage,
+      totalBlog: blog.length
+    }
   }
 
   author: Author = {
@@ -46,7 +71,7 @@ export class BlogService {
   date = new Date();
   blogs: Blog[] = [
     {
-      title: 'Lorem Ipsum Dolor Sit Amet Dolor Sit Amet',
+      title: 'Lorem Ipsum Dolor  title no 1',
       author: this.author,
       type: [this.blogTypes[0]],
       id: 1,
@@ -59,7 +84,7 @@ export class BlogService {
       image: 'https://source.unsplash.com/collection/1346951/1000x500?sig=1'
     },
     {
-      title: 'Lorem Ipsum Dolor Sit Amet Dolor Sit Amet',
+      title: 'Lorem Ipsum Dolor  title no 2',
       author: this.author,
       type: [this.blogTypes[1]],
       id: 2,
@@ -72,9 +97,9 @@ export class BlogService {
       image: 'https://source.unsplash.com/collection/1346951/1000x500?sig=2'
     },
     {
-      title: 'Lorem Ipsum Dolor Sit Amet Dolor Sit Amet',
+      title: 'Lorem Ipsum Dolor  title no 3',
       author: this.author,
-      type: [this.blogTypes[2],this.blogTypes[3]],
+      type: [this.blogTypes[2], this.blogTypes[3]],
       id: 3,
       description: `
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis porta
@@ -85,7 +110,7 @@ export class BlogService {
       image: 'https://source.unsplash.com/collection/1346951/1000x500?sig=3'
     },
     {
-      title: 'Lorem Ipsum Dolor Sit Amet Dolor Sit Amet',
+      title: 'Lorem Ipsum Dolor  title no 4',
       author: this.author,
       type: [this.blogTypes[3]],
       id: 4,
@@ -98,7 +123,7 @@ export class BlogService {
       image: 'https://source.unsplash.com/collection/1346951/1000x500?sig=4'
     },
     {
-      title: 'Lorem Ipsum Dolor Sit Amet Dolor Sit Amet',
+      title: 'Lorem Ipsum Dolor  title no 5',
       author: this.author,
       type: [this.blogTypes[4]],
       id: 5,
@@ -111,7 +136,7 @@ export class BlogService {
       image: 'https://source.unsplash.com/collection/1346951/1000x500?sig=5'
     },
     {
-      title: 'Lorem Ipsum Dolor Sit Amet Dolor Sit Amet',
+      title: 'Lorem Ipsum Dolor  title no 6',
       author: this.author,
       type: [this.blogTypes[0]],
       id: 6,
@@ -124,7 +149,7 @@ export class BlogService {
       image: 'https://source.unsplash.com/collection/1346951/1000x500?sig=6'
     },
     {
-      title: 'Lorem Ipsum Dolor Sit Amet Dolor Sit Amet',
+      title: 'Lorem Ipsum Dolor  title no 7',
       author: this.author,
       type: [this.blogTypes[2]],
       id: 7,
@@ -137,9 +162,9 @@ export class BlogService {
       image: 'https://source.unsplash.com/collection/1346951/1000x500?sig=7'
     },
     {
-      title: 'Lorem Ipsum Dolor Sit Amet Dolor Sit Amet',
+      title: 'Lorem Ipsum Dolor  title no 8',
       author: this.author,
-      type: [this.blogTypes[1],this.blogTypes[2]],
+      type: [this.blogTypes[1], this.blogTypes[2]],
       id: 8,
       description: `
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis porta
@@ -150,7 +175,7 @@ export class BlogService {
       image: 'https://source.unsplash.com/collection/1346951/1000x500?sig=8'
     },
     {
-      title: 'Lorem Ipsum Dolor Sit Amet Dolor Sit Amet',
+      title: 'Lorem Ipsum Dolor  title no 9',
       author: this.author,
       type: [this.blogTypes[3]],
       id: 9,

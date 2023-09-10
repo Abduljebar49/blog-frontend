@@ -12,9 +12,11 @@ export class BlogItemComponent implements OnInit {
   @Input() blog: Blog | undefined
 
   constructor(private router: Router) {
-    console.log()
+    console.log("blog detail : ",this.blog)
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // console.log("blog sent ; ",this.blog)
+  }
 
 
   openBlog(id: any) {

@@ -13,13 +13,13 @@
             <a class="" href="#">
                 <i class="fab fa-facebook"></i>
             </a>
-            <a class="pl-6" href="#">
+            <a class="pl-4" href="#">
                 <i class="fab fa-instagram"></i>
             </a>
-            <a class="pl-6" href="#">
+            <a class="pl-4" href="#">
                 <i class="fab fa-twitter"></i>
             </a>
-            <a class="pl-6" href="#">
+            <a class="pl-4" href="#">
                 <i class="fab fa-linkedin"></i>
             </a>
         </div>
@@ -47,27 +47,29 @@
         </a>
     </div>
     <div class="open ? 'block': 'hidden'" class="w-full flex-grow sm:flex sm:items-center sm:w-auto">
-        <div
+        <div *ngIf="blogTypes.length > 0"
             class="w-full container mx-auto flex flex-col sm:flex-row items-center justify-center text-sm font-bold uppercase mt-0 px-6 py-2">
-            <a href="#" class="hover:bg-gray-400 rounded py-2 px-4 mx-2">Technology</a>
-            <a href="#" class="hover:bg-gray-400 rounded py-2 px-4 mx-2">Automotive</a>
+            <a href="#" class="hover:bg-gray-400 rounded py-2 px-4 mx-2"
+                *ngFor="let blog of blogTypes">{{blog.title}}</a>
+            <!-- <a href="#" class="hover:bg-gray-400 rounded py-2 px-4 mx-2">Automotive</a>
             <a href="#" class="hover:bg-gray-400 rounded py-2 px-4 mx-2">Finance</a>
             <a href="#" class="hover:bg-gray-400 rounded py-2 px-4 mx-2">Politics</a>
             <a href="#" class="hover:bg-gray-400 rounded py-2 px-4 mx-2">Culture</a>
-            <a href="#" class="hover:bg-gray-400 rounded py-2 px-4 mx-2">Sports</a>
+            <a href="#" class="hover:bg-gray-400 rounded py-2 px-4 mx-2">Sports</a> -->
         </div>
     </div>
 </nav>
 <div class="container mx-auto flex flex-wrap py-6">
     <aside class="w-full md:w-2/3 flex flex-col items-center px-3">
-        <blog-item *ngFor="let blog of blogs | paginate
-              : {
-                 itemsPerPage: tableSize,
-                 currentPage: page,
-                 totalItems: count
-              };
-            let i = index" 
-        [blog]="blog"></blog-item>
+        <div *ngFor="let blog of blogs | paginate
+        : {
+           itemsPerPage: tableSize,
+           currentPage: page,
+           totalItems: count
+        };
+      let i = index">
+            <blog-item [blog]="blog"></blog-item>
+        </div>
         <div class="d-flex justify-content-center">
             <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)">
             </pagination-controls>
