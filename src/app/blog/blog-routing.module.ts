@@ -14,7 +14,7 @@ const routes: Routes = [
         component: IndexComponent
       },
       {
-        path: ':id',
+        path: ':blogId/:id',
         component: DetailComponent
       }
     ]
